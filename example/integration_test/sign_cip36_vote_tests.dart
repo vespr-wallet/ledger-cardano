@@ -5,6 +5,8 @@ import 'package:ledger_cardano_plus/ledger_cardano_plus.dart';
 import 'sign_cip36_vote_test_cases.dart';
 import 'test_utils.dart';
 
+
+
 void main() {
   // TODO update test to expect error on old version
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
@@ -25,7 +27,7 @@ void main() {
       test(testCase.testName, () async {
         final response = await cardanoApp.signCIP36Vote(testCase.cVote);
         expectVespr(response, equals(testCase.expected));
-      });
+      }, timeout: testTimeout);
     }
   });
 }

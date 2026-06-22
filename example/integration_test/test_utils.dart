@@ -12,6 +12,8 @@ import 'package:permission_handler/permission_handler.dart';
 
 import 'get_extended_public_key_test_cases.dart';
 
+const testTimeout = Timeout(Duration(minutes: 4));
+
 Future<CardanoLedgerConnection> establishCardanoConnection() async {
   final ledger = CardanoLedger.ble(
     onPermissionRequest: ({required bool unsupported}) async {
@@ -46,7 +48,7 @@ void versionConstrainedTest(
       );
     }
   },
-  timeout: const Timeout(Duration(seconds: 120)),
+  timeout: testTimeout,
 );
 
 FutureOr<void> expectVespr(dynamic actual, dynamic matcher) async {

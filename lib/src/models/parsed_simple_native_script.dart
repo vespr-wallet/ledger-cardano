@@ -59,9 +59,17 @@ sealed class ParsedSimpleNativeScript with _$ParsedSimpleNativeScript {
   };
 
   @override
-  late final int pubkeyType = switch (this) {
-    ParsedSimpleNativeScript_PubKeyDeviceOwned() => 1,
-    ParsedSimpleNativeScript_PubKeyThirdParty() => 2,
+  late final int pubkeyTypeV7 = switch (this) {
+    ParsedSimpleNativeScript_PubKeyDeviceOwned() => 1,  // KEY_REFERENCE_PATH (v7)
+    ParsedSimpleNativeScript_PubKeyThirdParty() => 2,   // KEY_REFERENCE_HASH (v7)
+    ParsedSimpleNativeScript_InvalidBefore() => 0,
+    ParsedSimpleNativeScript_InvalidHereafter() => 0,
+  };
+
+  @override
+  late final int pubkeyTypeV8 = switch (this) {
+    ParsedSimpleNativeScript_PubKeyDeviceOwned() => 2,  // EXT_CREDENTIAL_KEY_PATH (v8)
+    ParsedSimpleNativeScript_PubKeyThirdParty() => 0,   // EXT_CREDENTIAL_KEY_HASH (v8)
     ParsedSimpleNativeScript_InvalidBefore() => 0,
     ParsedSimpleNativeScript_InvalidHereafter() => 0,
   };

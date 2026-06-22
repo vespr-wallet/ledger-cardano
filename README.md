@@ -133,34 +133,59 @@ To run the integration tests for the `ledger-cardano-plus` SDK, follow these ste
    cd example/integration_test
    ```
 
-4. **Set up ledger device with correct test recovery phrase**
-   - abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon about
+4. **Set up your Ledger device:**
 
-5. **Run the Tests:**
+   - Use the test recovery phrase:
+     `abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon about`
+   - Open the **Cardano** app on the device and make sure the device is unlocked.
+   - For the unrestricted-transaction test, **Enable Expert mode** (Cardano app → settings).
 
-   - Use the following Flutter command to execute all the integration tests:
+5. **Choose the target device (`-d`):**
+
+   - Integration tests run on a host target (an Android device) that connects to the Ledger over BLE/USB. List available targets:
+
+   ```bash
+   flutter devices
+   ```
+
+   - Pass the desired target to every test command with `-d`, e.g. `-d <android-device-id>`.
+
+6. **Run the Tests:**
+
+   - Run all integration tests on a chosen target:
 
    ```bash
    cd example
-   flutter test integration_test/*_tests.dart
+   flutter test integration_test/*_tests.dart -d <device-id>
    ```
 
    - To run a specific integration test file, provide the path to the test file:
 
    ```bash
    cd example
-   flutter test integration_test/sign_message_tests.dart
-   flutter test integration_test/cardano_ledger_serial_version_tests.dart
+   flutter test integration_test/sign_message_tests.dart -d <device-id>
    ```
 
    - To run a specific test case within a test file, use the `-n` flag followed by the test name:
 
    ```bash
    cd example
-   flutter test integration_test/cardano_ledger_serial_version_tests.dart -n "Should correctly get the serial number of the device"
+   flutter test integration_test/cardano_ledger_serial_version_tests.dart -n "Should correctly get the serial number of the device" -d <device-id>
    ```
 
-   Make sure your development environment is properly set up to communicate with the Ledger device, and that the device is connected and unlocked before running the tests.
+   > **Expert mode:** `sign_tx_unrestricted_tests.dart` is split into its own
+   > entry point because it needs Expert mode enabled. The `*_tests.dart` glob
+   > above includes it, so either enable Expert mode before a full run, or run
+   > it on its own:
+   >
+   > ```bash
+   > cd example
+   > flutter test integration_test/sign_tx_unrestricted_tests.dart -d <device-id>
+   > ```
+
+   Make sure your environment is set up to communicate with the Ledger device,
+   and that the device is connected, unlocked, and running the Cardano app
+   before running the tests.
 
 ## License
 

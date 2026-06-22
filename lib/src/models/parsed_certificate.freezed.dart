@@ -944,6 +944,351 @@ $ParsedAnchorCopyWith<$Res>? get anchor {
 /// @nodoc
 
 
+class StakePoolAndDRepDelegation extends ParsedCertificate {
+   StakePoolAndDRepDelegation({required this.stakeCredential, required this.poolKeyHashHex, required this.dRep}): super._();
+  
+
+ final  ParsedCredential stakeCredential;
+ final  String poolKeyHashHex;
+ final  ParsedDRep dRep;
+
+/// Create a copy of ParsedCertificate
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$StakePoolAndDRepDelegationCopyWith<StakePoolAndDRepDelegation> get copyWith => _$StakePoolAndDRepDelegationCopyWithImpl<StakePoolAndDRepDelegation>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is StakePoolAndDRepDelegation&&(identical(other.stakeCredential, stakeCredential) || other.stakeCredential == stakeCredential)&&(identical(other.poolKeyHashHex, poolKeyHashHex) || other.poolKeyHashHex == poolKeyHashHex)&&(identical(other.dRep, dRep) || other.dRep == dRep));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,stakeCredential,poolKeyHashHex,dRep);
+
+@override
+String toString() {
+  return 'ParsedCertificate.stakePoolAndDRepDelegation(stakeCredential: $stakeCredential, poolKeyHashHex: $poolKeyHashHex, dRep: $dRep)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $StakePoolAndDRepDelegationCopyWith<$Res> implements $ParsedCertificateCopyWith<$Res> {
+  factory $StakePoolAndDRepDelegationCopyWith(StakePoolAndDRepDelegation value, $Res Function(StakePoolAndDRepDelegation) _then) = _$StakePoolAndDRepDelegationCopyWithImpl;
+@useResult
+$Res call({
+ ParsedCredential stakeCredential, String poolKeyHashHex, ParsedDRep dRep
+});
+
+
+$ParsedCredentialCopyWith<$Res> get stakeCredential;$ParsedDRepCopyWith<$Res> get dRep;
+
+}
+/// @nodoc
+class _$StakePoolAndDRepDelegationCopyWithImpl<$Res>
+    implements $StakePoolAndDRepDelegationCopyWith<$Res> {
+  _$StakePoolAndDRepDelegationCopyWithImpl(this._self, this._then);
+
+  final StakePoolAndDRepDelegation _self;
+  final $Res Function(StakePoolAndDRepDelegation) _then;
+
+/// Create a copy of ParsedCertificate
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? stakeCredential = null,Object? poolKeyHashHex = null,Object? dRep = null,}) {
+  return _then(StakePoolAndDRepDelegation(
+stakeCredential: null == stakeCredential ? _self.stakeCredential : stakeCredential // ignore: cast_nullable_to_non_nullable
+as ParsedCredential,poolKeyHashHex: null == poolKeyHashHex ? _self.poolKeyHashHex : poolKeyHashHex // ignore: cast_nullable_to_non_nullable
+as String,dRep: null == dRep ? _self.dRep : dRep // ignore: cast_nullable_to_non_nullable
+as ParsedDRep,
+  ));
+}
+
+/// Create a copy of ParsedCertificate
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$ParsedCredentialCopyWith<$Res> get stakeCredential {
+  
+  return $ParsedCredentialCopyWith<$Res>(_self.stakeCredential, (value) {
+    return _then(_self.copyWith(stakeCredential: value));
+  });
+}/// Create a copy of ParsedCertificate
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$ParsedDRepCopyWith<$Res> get dRep {
+  
+  return $ParsedDRepCopyWith<$Res>(_self.dRep, (value) {
+    return _then(_self.copyWith(dRep: value));
+  });
+}
+}
+
+/// @nodoc
+
+
+class AccountRegistrationDelegationToStakePool extends ParsedCertificate {
+   AccountRegistrationDelegationToStakePool({required this.stakeCredential, required this.deposit, required this.poolKeyHashHex}): super._();
+  
+
+ final  ParsedCredential stakeCredential;
+ final  BigInt deposit;
+ final  String poolKeyHashHex;
+
+/// Create a copy of ParsedCertificate
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$AccountRegistrationDelegationToStakePoolCopyWith<AccountRegistrationDelegationToStakePool> get copyWith => _$AccountRegistrationDelegationToStakePoolCopyWithImpl<AccountRegistrationDelegationToStakePool>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is AccountRegistrationDelegationToStakePool&&(identical(other.stakeCredential, stakeCredential) || other.stakeCredential == stakeCredential)&&(identical(other.deposit, deposit) || other.deposit == deposit)&&(identical(other.poolKeyHashHex, poolKeyHashHex) || other.poolKeyHashHex == poolKeyHashHex));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,stakeCredential,deposit,poolKeyHashHex);
+
+@override
+String toString() {
+  return 'ParsedCertificate.accountRegistrationDelegationToStakePool(stakeCredential: $stakeCredential, deposit: $deposit, poolKeyHashHex: $poolKeyHashHex)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $AccountRegistrationDelegationToStakePoolCopyWith<$Res> implements $ParsedCertificateCopyWith<$Res> {
+  factory $AccountRegistrationDelegationToStakePoolCopyWith(AccountRegistrationDelegationToStakePool value, $Res Function(AccountRegistrationDelegationToStakePool) _then) = _$AccountRegistrationDelegationToStakePoolCopyWithImpl;
+@useResult
+$Res call({
+ ParsedCredential stakeCredential, BigInt deposit, String poolKeyHashHex
+});
+
+
+$ParsedCredentialCopyWith<$Res> get stakeCredential;
+
+}
+/// @nodoc
+class _$AccountRegistrationDelegationToStakePoolCopyWithImpl<$Res>
+    implements $AccountRegistrationDelegationToStakePoolCopyWith<$Res> {
+  _$AccountRegistrationDelegationToStakePoolCopyWithImpl(this._self, this._then);
+
+  final AccountRegistrationDelegationToStakePool _self;
+  final $Res Function(AccountRegistrationDelegationToStakePool) _then;
+
+/// Create a copy of ParsedCertificate
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? stakeCredential = null,Object? deposit = null,Object? poolKeyHashHex = null,}) {
+  return _then(AccountRegistrationDelegationToStakePool(
+stakeCredential: null == stakeCredential ? _self.stakeCredential : stakeCredential // ignore: cast_nullable_to_non_nullable
+as ParsedCredential,deposit: null == deposit ? _self.deposit : deposit // ignore: cast_nullable_to_non_nullable
+as BigInt,poolKeyHashHex: null == poolKeyHashHex ? _self.poolKeyHashHex : poolKeyHashHex // ignore: cast_nullable_to_non_nullable
+as String,
+  ));
+}
+
+/// Create a copy of ParsedCertificate
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$ParsedCredentialCopyWith<$Res> get stakeCredential {
+  
+  return $ParsedCredentialCopyWith<$Res>(_self.stakeCredential, (value) {
+    return _then(_self.copyWith(stakeCredential: value));
+  });
+}
+}
+
+/// @nodoc
+
+
+class AccountRegistrationDelegationToDRep extends ParsedCertificate {
+   AccountRegistrationDelegationToDRep({required this.stakeCredential, required this.deposit, required this.dRep}): super._();
+  
+
+ final  ParsedCredential stakeCredential;
+ final  BigInt deposit;
+ final  ParsedDRep dRep;
+
+/// Create a copy of ParsedCertificate
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$AccountRegistrationDelegationToDRepCopyWith<AccountRegistrationDelegationToDRep> get copyWith => _$AccountRegistrationDelegationToDRepCopyWithImpl<AccountRegistrationDelegationToDRep>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is AccountRegistrationDelegationToDRep&&(identical(other.stakeCredential, stakeCredential) || other.stakeCredential == stakeCredential)&&(identical(other.deposit, deposit) || other.deposit == deposit)&&(identical(other.dRep, dRep) || other.dRep == dRep));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,stakeCredential,deposit,dRep);
+
+@override
+String toString() {
+  return 'ParsedCertificate.accountRegistrationDelegationToDRep(stakeCredential: $stakeCredential, deposit: $deposit, dRep: $dRep)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $AccountRegistrationDelegationToDRepCopyWith<$Res> implements $ParsedCertificateCopyWith<$Res> {
+  factory $AccountRegistrationDelegationToDRepCopyWith(AccountRegistrationDelegationToDRep value, $Res Function(AccountRegistrationDelegationToDRep) _then) = _$AccountRegistrationDelegationToDRepCopyWithImpl;
+@useResult
+$Res call({
+ ParsedCredential stakeCredential, BigInt deposit, ParsedDRep dRep
+});
+
+
+$ParsedCredentialCopyWith<$Res> get stakeCredential;$ParsedDRepCopyWith<$Res> get dRep;
+
+}
+/// @nodoc
+class _$AccountRegistrationDelegationToDRepCopyWithImpl<$Res>
+    implements $AccountRegistrationDelegationToDRepCopyWith<$Res> {
+  _$AccountRegistrationDelegationToDRepCopyWithImpl(this._self, this._then);
+
+  final AccountRegistrationDelegationToDRep _self;
+  final $Res Function(AccountRegistrationDelegationToDRep) _then;
+
+/// Create a copy of ParsedCertificate
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? stakeCredential = null,Object? deposit = null,Object? dRep = null,}) {
+  return _then(AccountRegistrationDelegationToDRep(
+stakeCredential: null == stakeCredential ? _self.stakeCredential : stakeCredential // ignore: cast_nullable_to_non_nullable
+as ParsedCredential,deposit: null == deposit ? _self.deposit : deposit // ignore: cast_nullable_to_non_nullable
+as BigInt,dRep: null == dRep ? _self.dRep : dRep // ignore: cast_nullable_to_non_nullable
+as ParsedDRep,
+  ));
+}
+
+/// Create a copy of ParsedCertificate
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$ParsedCredentialCopyWith<$Res> get stakeCredential {
+  
+  return $ParsedCredentialCopyWith<$Res>(_self.stakeCredential, (value) {
+    return _then(_self.copyWith(stakeCredential: value));
+  });
+}/// Create a copy of ParsedCertificate
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$ParsedDRepCopyWith<$Res> get dRep {
+  
+  return $ParsedDRepCopyWith<$Res>(_self.dRep, (value) {
+    return _then(_self.copyWith(dRep: value));
+  });
+}
+}
+
+/// @nodoc
+
+
+class AccountRegistrationDelegationToStakePoolAndDRep extends ParsedCertificate {
+   AccountRegistrationDelegationToStakePoolAndDRep({required this.stakeCredential, required this.deposit, required this.poolKeyHashHex, required this.dRep}): super._();
+  
+
+ final  ParsedCredential stakeCredential;
+ final  BigInt deposit;
+ final  String poolKeyHashHex;
+ final  ParsedDRep dRep;
+
+/// Create a copy of ParsedCertificate
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$AccountRegistrationDelegationToStakePoolAndDRepCopyWith<AccountRegistrationDelegationToStakePoolAndDRep> get copyWith => _$AccountRegistrationDelegationToStakePoolAndDRepCopyWithImpl<AccountRegistrationDelegationToStakePoolAndDRep>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is AccountRegistrationDelegationToStakePoolAndDRep&&(identical(other.stakeCredential, stakeCredential) || other.stakeCredential == stakeCredential)&&(identical(other.deposit, deposit) || other.deposit == deposit)&&(identical(other.poolKeyHashHex, poolKeyHashHex) || other.poolKeyHashHex == poolKeyHashHex)&&(identical(other.dRep, dRep) || other.dRep == dRep));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,stakeCredential,deposit,poolKeyHashHex,dRep);
+
+@override
+String toString() {
+  return 'ParsedCertificate.accountRegistrationDelegationToStakePoolAndDRep(stakeCredential: $stakeCredential, deposit: $deposit, poolKeyHashHex: $poolKeyHashHex, dRep: $dRep)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $AccountRegistrationDelegationToStakePoolAndDRepCopyWith<$Res> implements $ParsedCertificateCopyWith<$Res> {
+  factory $AccountRegistrationDelegationToStakePoolAndDRepCopyWith(AccountRegistrationDelegationToStakePoolAndDRep value, $Res Function(AccountRegistrationDelegationToStakePoolAndDRep) _then) = _$AccountRegistrationDelegationToStakePoolAndDRepCopyWithImpl;
+@useResult
+$Res call({
+ ParsedCredential stakeCredential, BigInt deposit, String poolKeyHashHex, ParsedDRep dRep
+});
+
+
+$ParsedCredentialCopyWith<$Res> get stakeCredential;$ParsedDRepCopyWith<$Res> get dRep;
+
+}
+/// @nodoc
+class _$AccountRegistrationDelegationToStakePoolAndDRepCopyWithImpl<$Res>
+    implements $AccountRegistrationDelegationToStakePoolAndDRepCopyWith<$Res> {
+  _$AccountRegistrationDelegationToStakePoolAndDRepCopyWithImpl(this._self, this._then);
+
+  final AccountRegistrationDelegationToStakePoolAndDRep _self;
+  final $Res Function(AccountRegistrationDelegationToStakePoolAndDRep) _then;
+
+/// Create a copy of ParsedCertificate
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? stakeCredential = null,Object? deposit = null,Object? poolKeyHashHex = null,Object? dRep = null,}) {
+  return _then(AccountRegistrationDelegationToStakePoolAndDRep(
+stakeCredential: null == stakeCredential ? _self.stakeCredential : stakeCredential // ignore: cast_nullable_to_non_nullable
+as ParsedCredential,deposit: null == deposit ? _self.deposit : deposit // ignore: cast_nullable_to_non_nullable
+as BigInt,poolKeyHashHex: null == poolKeyHashHex ? _self.poolKeyHashHex : poolKeyHashHex // ignore: cast_nullable_to_non_nullable
+as String,dRep: null == dRep ? _self.dRep : dRep // ignore: cast_nullable_to_non_nullable
+as ParsedDRep,
+  ));
+}
+
+/// Create a copy of ParsedCertificate
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$ParsedCredentialCopyWith<$Res> get stakeCredential {
+  
+  return $ParsedCredentialCopyWith<$Res>(_self.stakeCredential, (value) {
+    return _then(_self.copyWith(stakeCredential: value));
+  });
+}/// Create a copy of ParsedCertificate
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$ParsedDRepCopyWith<$Res> get dRep {
+  
+  return $ParsedDRepCopyWith<$Res>(_self.dRep, (value) {
+    return _then(_self.copyWith(dRep: value));
+  });
+}
+}
+
+/// @nodoc
+
+
 class StakePoolRegistration extends ParsedCertificate {
    StakePoolRegistration({required this.pool}): super._();
   

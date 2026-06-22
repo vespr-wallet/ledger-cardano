@@ -19,6 +19,10 @@ void main() {
       isAppXS = (await cardanoApp.getVersion()).flags.isAppXS;
     });
 
+    tearDownAll(() async {
+      await cardanoApp.disconnect();
+    });
+
     group('Valid native scripts - isAppXs true', () {
       for (final testCase in validNativeScriptTestCases) {
         test(testCase.testName, () async {
@@ -33,7 +37,8 @@ void main() {
               throwsA(isA<LedgerException>()),
             );
           }
-        });
+        }, timeout: testTimeout);
+
       }
     });
 
@@ -51,7 +56,8 @@ void main() {
               equals(testCase.expectedHash),
             );
           }
-        });
+        }, timeout: testTimeout);
+
       }
     });
 
@@ -76,9 +82,9 @@ void main() {
               testCase.script(),
               NativeScriptHashDisplayFormat.bech32,
             ),
-            throwsA(isA<InvalidDataException>()),
+            throwsA(isA<LedgerCardanoResponseCodeException>()),
           );
-        });
+        }, timeout: testTimeout);
       }
     });
   });

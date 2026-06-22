@@ -36,6 +36,8 @@ sealed class VersionCompatibility with _$VersionCompatibility {
     required bool supportsCIP36Vote,
     required bool supportsConway,
     required bool supportsMessageSigning,
+    required bool supportsUnrestrictedTransaction,
+    required bool supportsCombinedCerts,
   }) = _VersionCompatibility;
   const VersionCompatibility._();
 
@@ -44,7 +46,7 @@ sealed class VersionCompatibility with _$VersionCompatibility {
     final int major = version.versionMajor;
     final int minor = version.versionMinor;
 
-    bool isVersionInRange(int minMajor, int minMinor, [int maxMajor = 7]) {
+    bool isVersionInRange(int minMajor, int minMinor, [int maxMajor = 8]) {
       return (major > minMajor || (major == minMajor && minor >= minMinor)) && major <= maxMajor;
     }
 
@@ -69,6 +71,8 @@ sealed class VersionCompatibility with _$VersionCompatibility {
       supportsCIP36Vote: isVersionInRange(6, 0),
       supportsConway: isVersionInRange(7, 0),
       supportsMessageSigning: isVersionInRange(7, 1),
+      supportsUnrestrictedTransaction: isVersionInRange(8, 0) && !isAppXS,
+      supportsCombinedCerts: isVersionInRange(8, 0),
     );
   }
 
@@ -102,6 +106,13 @@ sealed class VersionCompatibility with _$VersionCompatibility {
           message: "Plutus transaction",
           wantedVersion: ">=4.0.0",
           era: "Alonzo",
+        );
+      },
+      TransactionSigningModes.unrestrictedTransaction when !compatibility.supportsUnrestrictedTransaction => () {
+        throw LedgerCardanoVersionNotSupported(
+          message: "Unrestricted transaction",
+          wantedVersion: ">=8.0.0",
+          era: "Conway",
         );
       },
       _ => () {},
@@ -146,6 +157,21 @@ sealed class VersionCompatibility with _$VersionCompatibility {
         message: "Pool retirement",
         wantedVersion: ">=2.4.0",
         era: "Mary",
+      );
+    }
+
+    final hasCombinedCerts = request.tx.certificates?.any((c) => switch (c) {
+      StakePoolAndDRepDelegation() ||
+      AccountRegistrationDelegationToStakePool() ||
+      AccountRegistrationDelegationToDRep() ||
+      AccountRegistrationDelegationToStakePoolAndDRep() => true,
+      _ => false,
+    }) ?? false;
+    if (hasCombinedCerts && !compatibility.supportsCombinedCerts) {
+      throw LedgerCardanoVersionNotSupported(
+        message: "Combined delegation certificates",
+        wantedVersion: ">=8.0.0",
+        era: "Conway",
       );
     }
 

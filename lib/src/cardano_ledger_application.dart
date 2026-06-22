@@ -133,6 +133,7 @@ class CardanoLedgerConnection {
     final operation = CardanoDeriveNativeScriptHashOperation(
       script: script,
       displayFormat: displayFormat,
+      version: deviceVersion,
     );
 
     final String scriptHash = await _ledgerConnection.sendOperation<String>(

@@ -41,16 +41,52 @@ class CardanoSignMessageOperation extends LedgerComplexOperation<SignedMessageDa
       );
     }
 
-    // P1 values
-    const int p1StageInit = 0x01;
-    const int p1StageChunk = 0x02;
-    const int p1StageConfirm = 0x03;
+    if (version.versionMajor >= 8) return _invokeV8(send);
+    return _invokeV7(send);
+  }
 
-    // INIT
+  // P1 values (shared)
+  static const int _p1StageInit = 0x01;
+  static const int _p1StageChunk = 0x02;
+  static const int _p1StageConfirm = 0x03;
+
+  Uint8List _buildChunkData(List<int> msgBytes, int start, int end) {
+    final chunk = msgBytes.sublist(start, end);
+    return Uint8List.fromList([
+      ...SerializationUtils.serializeUint32(chunk.length),
+      ...chunk,
+    ]);
+  }
+
+  Future<SignedMessageData> _readConfirmResponse(LedgerSendFct send) async {
+    final confirmResponse = await send(
+      _createSendOperation(p1: _p1StageConfirm, data: Uint8List(0)),
+    );
+
+    final signatureHex = hex.encode(confirmResponse.read(ed25519SignatureLength));
+    final signingPublicKeyHex = hex.encode(confirmResponse.read(publicKeyLength));
+
+    final addressFieldSizeBuf = confirmResponse.read(4);
+    final addressFieldSize =
+        (addressFieldSizeBuf[0] << 24) |
+        (addressFieldSizeBuf[1] << 16) |
+        (addressFieldSizeBuf[2] << 8) |
+        addressFieldSizeBuf[3];
+    final addressFieldHex = hex.encode(confirmResponse.read(addressFieldSize));
+
+    return SignedMessageData(
+      signatureHex: signatureHex,
+      signingPublicKeyHex: signingPublicKeyHex,
+      addressFieldHex: addressFieldHex,
+      signatureType: msgData.hashPayload ? DataSignatureType.payload_black2b_hash_28_bytes : DataSignatureType.paylod,
+    );
+  }
+
+  Future<SignedMessageData> _invokeV7(LedgerSendFct send) async {
     await send(
       _createSendOperation(
-        p1: p1StageInit,
-        data: SerializationUtils.serializeMessageDataInit(
+        p1: _p1StageInit,
+        data: SerializationV7.serializeV7MessageDataInit(
           version: version,
           msgData: msgData,
           network: network,
@@ -104,32 +140,33 @@ class CardanoSignMessageOperation extends LedgerComplexOperation<SignedMessageDa
       start = end;
     }
 
-    // CONFIRM
-    final confirmResponse = await send(
+    return _readConfirmResponse(send);
+  }
+
+  Future<SignedMessageData> _invokeV8(LedgerSendFct send) async {
+    await send(
       _createSendOperation(
-        p1: p1StageConfirm,
-        data: Uint8List(0),
+        p1: _p1StageInit,
+        data: SerializationV8.serializeV8MessageDataInit(
+          version: version,
+          msgData: msgData,
+          network: network,
+        ),
       ),
     );
 
-    final signatureHex = hex.encode(confirmResponse.read(ed25519SignatureLength));
+    final msgBytes = hex.decode(msgData.messageHex);
 
-    final signingPublicKeyHex = hex.encode(confirmResponse.read(publicKeyLength));
+    // v8: all chunks use a single uniform size — min(remaining, maxCIP8MessageHiddenChunkSize)
+    int start = 0;
+    while (start < msgBytes.length) {
+      final end = msgBytes.length < start + maxCIP8MessageHiddenChunkSize
+          ? msgBytes.length
+          : start + maxCIP8MessageHiddenChunkSize;
+      await send(_createSendOperation(p1: _p1StageChunk, data: _buildChunkData(msgBytes, start, end)));
+      start = end;
+    }
 
-    final addressFieldSizeBuf = confirmResponse.read(4);
-    final addressFieldSize =
-        (addressFieldSizeBuf[0] << 24) |
-        (addressFieldSizeBuf[1] << 16) |
-        (addressFieldSizeBuf[2] << 8) |
-        addressFieldSizeBuf[3];
-
-    final addressFieldHex = hex.encode(confirmResponse.read(addressFieldSize));
-
-    return SignedMessageData(
-      signatureHex: signatureHex,
-      signingPublicKeyHex: signingPublicKeyHex,
-      addressFieldHex: addressFieldHex,
-      signatureType: msgData.hashPayload ? DataSignatureType.payload_black2b_hash_28_bytes : DataSignatureType.paylod,
-    );
+    return _readConfirmResponse(send);
   }
 }

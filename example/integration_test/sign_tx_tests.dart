@@ -10,6 +10,8 @@ import 'cases/sign_tx_conway_voting_procedures.dart';
 import 'cases/sign_tx_conway_with_certs.dart';
 import 'cases/sign_tx_mary.dart';
 import 'cases/sign_tx_multi_delegation.dart';
+import 'cases/sign_tx_combined_certs.dart';
+import 'cases/sign_tx_pool_registration.dart';
 import 'cases/sitn_tx_alonzo_trezor_comparison.dart';
 import 'sign_tx_test_cases.dart';
 import 'test_utils.dart';
@@ -43,6 +45,10 @@ void main() async {
   print('Connected to device: ${cardanoApp.device.name}');
 
   group('signTx', () {
+    tearDownAll(() async {
+      await cardanoApp.disconnect();
+    });
+
     testsConwayVotingProcedures.testGroup(
       groupName: 'signTxConwayVotingProcedures',
       appVersion: appVersion,
@@ -127,8 +133,14 @@ void main() async {
       cardanoApp: cardanoApp,
     );
 
-    testsByron.testGroup(
-      groupName: 'signTxByron',
+    testsConwayCombinedCerts.testGroup(
+      groupName: 'signTxConwayCombinedCerts',
+      appVersion: appVersion,
+      cardanoApp: cardanoApp,
+    );
+
+    testsPoolRegistration.testGroup(
+      groupName: 'signTxPoolRegistration',
       appVersion: appVersion,
       cardanoApp: cardanoApp,
     );

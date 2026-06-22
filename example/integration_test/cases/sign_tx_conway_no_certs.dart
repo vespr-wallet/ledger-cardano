@@ -55,7 +55,7 @@ final testsConwayWithoutCertificates = [
     minSupportedVersion: CardanoVersion.fromVersionCode(70000),
   ),
   SignTxTestCase(
-    testName: 'Sign tx with donation', // TODO recheck???
+    testName: 'Sign tx with donation',
     request: ParsedSigningRequest(
       tx: ParsedTransaction(
         network: CardanoNetwork.mainnet(),
@@ -79,11 +79,10 @@ final testsConwayWithoutCertificates = [
                 'Ae2tdPwUPEZCanmBz5g2GEwFqKTKpNJcGYPKfDxoNeKZ8bRHr8366kseiK2',
               ),
             ),
-            amount: BigInt.from(7120787),
+            amount: BigInt.from(3003112),
           ),
         ],
         donation: BigInt.from(28),
-        includeNetworkId: true,
       ),
       signingMode: TransactionSigningModes.ordinaryTransaction,
       additionalWitnessPaths: [],
@@ -106,7 +105,7 @@ final testsConwayWithoutCertificates = [
     minSupportedVersion: CardanoVersion.fromVersionCode(70000),
   ),
   SignTxTestCase(
-    testName: 'Sign tx with treasury and donation', // TODO recheck???
+    testName: 'Sign tx with treasury and donation',
     request: ParsedSigningRequest(
       tx: ParsedTransaction(
         network: CardanoNetwork.mainnet(),
@@ -130,12 +129,11 @@ final testsConwayWithoutCertificates = [
                 'Ae2tdPwUPEZCanmBz5g2GEwFqKTKpNJcGYPKfDxoNeKZ8bRHr8366kseiK2',
               ),
             ),
-            amount: BigInt.from(7120787),
+            amount: BigInt.from(3003112),
           ),
         ],
         treasury: BigInt.from(27),
         donation: BigInt.from(28),
-        includeNetworkId: true,
       ),
       signingMode: TransactionSigningModes.plutusTransaction,
       additionalWitnessPaths: [],

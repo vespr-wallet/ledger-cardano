@@ -45,6 +45,74 @@ $LedgerSigningPathCopyWith(LedgerSigningPath _, $Res Function(LedgerSigningPath)
 /// @nodoc
 
 
+class LedgerSigningPath_PoolCold extends LedgerSigningPath {
+   LedgerSigningPath_PoolCold({required this.account, required this.index}): super._();
+  
+
+ final  int account;
+ final  int index;
+
+/// Create a copy of LedgerSigningPath
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$LedgerSigningPath_PoolColdCopyWith<LedgerSigningPath_PoolCold> get copyWith => _$LedgerSigningPath_PoolColdCopyWithImpl<LedgerSigningPath_PoolCold>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is LedgerSigningPath_PoolCold&&(identical(other.account, account) || other.account == account)&&(identical(other.index, index) || other.index == index));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,account,index);
+
+@override
+String toString() {
+  return 'LedgerSigningPath.poolCold(account: $account, index: $index)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $LedgerSigningPath_PoolColdCopyWith<$Res> implements $LedgerSigningPathCopyWith<$Res> {
+  factory $LedgerSigningPath_PoolColdCopyWith(LedgerSigningPath_PoolCold value, $Res Function(LedgerSigningPath_PoolCold) _then) = _$LedgerSigningPath_PoolColdCopyWithImpl;
+@useResult
+$Res call({
+ int account, int index
+});
+
+
+
+
+}
+/// @nodoc
+class _$LedgerSigningPath_PoolColdCopyWithImpl<$Res>
+    implements $LedgerSigningPath_PoolColdCopyWith<$Res> {
+  _$LedgerSigningPath_PoolColdCopyWithImpl(this._self, this._then);
+
+  final LedgerSigningPath_PoolCold _self;
+  final $Res Function(LedgerSigningPath_PoolCold) _then;
+
+/// Create a copy of LedgerSigningPath
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? account = null,Object? index = null,}) {
+  return _then(LedgerSigningPath_PoolCold(
+account: null == account ? _self.account : account // ignore: cast_nullable_to_non_nullable
+as int,index: null == index ? _self.index : index // ignore: cast_nullable_to_non_nullable
+as int,
+  ));
+}
+
+
+}
+
+/// @nodoc
+
+
 class LedgerSigningPath_Byron extends LedgerSigningPath {
    LedgerSigningPath_Byron({required this.account, required this.address}): super._();
   

@@ -2,10 +2,7 @@ import "dart:typed_data";
 
 import "package:ledger_flutter_plus/ledger_flutter_plus_dart.dart";
 
-import "../models/parsed_complex_native_script.dart";
-import "../models/parsed_native_script.dart";
-import "../models/parsed_simple_native_script.dart";
-import "../utils/constants.dart";
+import "../../ledger_cardano_plus.dart";
 import "../utils/serialization_utils.dart";
 import "../utils/utilities.dart";
 
@@ -14,17 +11,38 @@ class CardanoDeriveNativeScriptHashOperation extends LedgerComplexOperation<Stri
 
   final ParsedNativeScript script;
   final NativeScriptHashDisplayFormat displayFormat;
+  final CardanoVersion version;
 
   const CardanoDeriveNativeScriptHashOperation({
     required this.script,
     required this.displayFormat,
+    required this.version,
   });
 
   @override
   Future<String> invoke(LedgerSendFct send) async {
+    if (version.versionMajor >= 8) return _invokeV8(send);
+    return _invokeV7(send);
+  }
+
+  Future<String> _invokeV7(LedgerSendFct send) async {
     await _deriveNativeScriptHashAddScript(send, script);
     final scriptHashHex = await _deriveNativeScriptHashFinishWholeNativeScript(send, displayFormat);
     return scriptHashHex;
+  }
+
+  Future<String> _invokeV8(LedgerSendFct send) async {
+    await send(LedgerSimpleOperation(
+      cla: claCardano,
+      ins: InstructionType.deriveNativeScriptHash.insValue,
+      p1: p1Unused,
+      p2: p2Unused,
+      data: Uint8List(0),
+      prependDataLength: true,
+      debugName: "Derive Native Script Hash — Init",
+    ));
+    await _deriveNativeScriptHashAddScript(send, script);
+    return _deriveNativeScriptHashFinishWholeNativeScript(send, displayFormat);
   }
 
   Future<void> _deriveNativeScriptHashAddScript(LedgerSendFct send, ParsedNativeScript script) async {
@@ -51,8 +69,6 @@ class CardanoDeriveNativeScriptHashOperation extends LedgerComplexOperation<Stri
 
     await send(sendOperation);
 
-    // Recursively add subscripts for complex native scripts
-    // This ensures that all scripts are added before calling Finish Whole Native Script
     if (script is ParsedNativeScript_Complex) {
       for (final subscript in script.script.scripts) {
         await _deriveNativeScriptHashAddScript(send, subscript);
@@ -100,15 +116,16 @@ class CardanoDeriveNativeScriptHashOperation extends LedgerComplexOperation<Stri
   });
 
   Uint8List serializeSimpleNativeScript(ParsedSimpleNativeScript script) => useBinaryWriter((writer) {
+    final isV8 = version.versionMajor >= 8;
     final void Function() invoker = switch (script) {
       ParsedSimpleNativeScript_PubKeyDeviceOwned() => () {
         writer.writeUint8(script.nativeScriptSerializationValue);
-        writer.writeUint8(script.pubkeyType);
+        writer.writeUint8(isV8 ? script.pubkeyTypeV8 : script.pubkeyTypeV7);
         writer.write(SerializationUtils.serializePath(script.path));
       },
       ParsedSimpleNativeScript_PubKeyThirdParty() => () {
         writer.writeUint8(script.nativeScriptSerializationValue);
-        writer.writeUint8(script.pubkeyType);
+        writer.writeUint8(isV8 ? script.pubkeyTypeV8 : script.pubkeyTypeV7);
         SerializationUtils.writeSerializedHex(writer, script.keyHashHex);
       },
       ParsedSimpleNativeScript_InvalidBefore() => () {

@@ -32,6 +32,7 @@ export "src/models/parsed_pool_key.dart";
 export "src/models/parsed_pool_metadata.dart";
 export "src/models/parsed_pool_owner.dart";
 export "src/models/parsed_pool_params.dart";
+export "src/models/parsed_pool_relay.dart";
 export "src/models/parsed_pool_reward_account.dart";
 export "src/models/parsed_required_signer.dart";
 export "src/models/parsed_signing_request.dart";

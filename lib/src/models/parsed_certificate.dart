@@ -35,6 +35,20 @@ sealed class ParsedCertificate with _$ParsedCertificate {
         validateUint64(thisClass.deposit, "deposit");
       },
       DRepUpdate() => () {},
+      StakePoolAndDRepDelegation() => () {
+        validateHexString(thisClass.poolKeyHashHex, "poolKeyHashHex");
+      },
+      AccountRegistrationDelegationToStakePool() => () {
+        validateUint64(thisClass.deposit, "deposit");
+        validateHexString(thisClass.poolKeyHashHex, "poolKeyHashHex");
+      },
+      AccountRegistrationDelegationToDRep() => () {
+        validateUint64(thisClass.deposit, "deposit");
+      },
+      AccountRegistrationDelegationToStakePoolAndDRep() => () {
+        validateUint64(thisClass.deposit, "deposit");
+        validateHexString(thisClass.poolKeyHashHex, "poolKeyHashHex");
+      },
       StakePoolRegistration() => () {},
       StakePoolRetirement() => () {
         validateUint64(thisClass.retirementEpoch, "retirementEpoch");
@@ -98,6 +112,31 @@ sealed class ParsedCertificate with _$ParsedCertificate {
     ParsedAnchor? anchor,
   }) = DRepUpdate;
 
+  factory ParsedCertificate.stakePoolAndDRepDelegation({
+    required ParsedCredential stakeCredential,
+    required String poolKeyHashHex,
+    required ParsedDRep dRep,
+  }) = StakePoolAndDRepDelegation;
+
+  factory ParsedCertificate.accountRegistrationDelegationToStakePool({
+    required ParsedCredential stakeCredential,
+    required BigInt deposit,
+    required String poolKeyHashHex,
+  }) = AccountRegistrationDelegationToStakePool;
+
+  factory ParsedCertificate.accountRegistrationDelegationToDRep({
+    required ParsedCredential stakeCredential,
+    required BigInt deposit,
+    required ParsedDRep dRep,
+  }) = AccountRegistrationDelegationToDRep;
+
+  factory ParsedCertificate.accountRegistrationDelegationToStakePoolAndDRep({
+    required ParsedCredential stakeCredential,
+    required BigInt deposit,
+    required String poolKeyHashHex,
+    required ParsedDRep dRep,
+  }) = AccountRegistrationDelegationToStakePoolAndDRep;
+
   factory ParsedCertificate.stakePoolRegistration({
     required ParsedPoolParams pool,
   }) = StakePoolRegistration;
@@ -122,6 +161,10 @@ sealed class ParsedCertificate with _$ParsedCertificate {
     DRepRegistration() => true,
     DRepDeregistration() => true,
     DRepUpdate() => true,
+    StakePoolAndDRepDelegation() => true,
+    AccountRegistrationDelegationToStakePool() => true,
+    AccountRegistrationDelegationToDRep() => true,
+    AccountRegistrationDelegationToStakePoolAndDRep() => true,
   };
 
   @override
@@ -134,6 +177,10 @@ sealed class ParsedCertificate with _$ParsedCertificate {
     StakeRegistrationConway() => 7,
     StakeDeregistrationConway() => 8,
     VoteDelegation() => 9,
+    StakePoolAndDRepDelegation() => 10,
+    AccountRegistrationDelegationToStakePool() => 11,
+    AccountRegistrationDelegationToDRep() => 12,
+    AccountRegistrationDelegationToStakePoolAndDRep() => 13,
     AuthorizeCommitteeHot() => 14,
     ResignCommitteeCold() => 15,
     DRepRegistration() => 16,

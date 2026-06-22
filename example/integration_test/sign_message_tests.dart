@@ -5,6 +5,8 @@ import 'package:ledger_cardano_plus/ledger_cardano_plus.dart';
 import 'sign_message_test_cases.dart';
 import 'test_utils.dart';
 
+
+
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
@@ -31,7 +33,7 @@ void main() {
         expectVespr(result.signingPublicKeyHex, equals(testCase.expected.signingPublicKeyHex));
         expectVespr(result.addressFieldHex, equals(testCase.expected.addressFieldHex));
         expectVespr(result.signatureType, equals(testCase.expected.signatureType));
-      });
+      }, timeout: testTimeout);
     }
   });
-} 
+}

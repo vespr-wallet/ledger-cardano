@@ -493,10 +493,6 @@ final testsMary = [
             policyIdHex: '7eae28af2208be856f7a119668ae52a49b73725e326dc16579dcc373',
             tokens: [
               ParsedToken(
-                assetNameHex: '',
-                amount: BigInt.from(0),
-              ),
-              ParsedToken(
                 assetNameHex: '1e349c9bdea19fd6c147626a5260bc44b71635f398b67c59881df209',
                 amount: BigInt.from(-1),
               ),
@@ -517,7 +513,7 @@ final testsMary = [
       additionalWitnessPaths: [],
     ),
     expected: SignedTransactionData(
-      txHashHex: 'd31008087e3a9a267661f802993f7604ac2dd53d4b458f27bfc3663bc7072de1',
+      txHashHex: 'a74eaca4fdcd8a8eea2db47e979aa34f7f5056549076b4f480d7650509418918',
       witnesses: [
         Witness(
           path: LedgerSigningPath.shelley(
@@ -526,7 +522,7 @@ final testsMary = [
             role: ShelleyAddressRole.payment,
           ),
           witnessSignatureHex:
-              '18fa055fb6d74b12170cdc227aaf4922c78405d4caf7bdbe5f959df2c3a912e20c5a18c4412d504685fe1179d32b5b588efe4a8d59f0274492de77f30f315409',
+              '867eb32707badcea3aa745ecfd28675cc03742274783d1872c065efbc1de071e7dc683f0c1f7e6e2dc1316211b31649055d51105576041020e8aca259edee60e',
         ),
       ],
       auxiliaryDataSupplement: null,
@@ -671,10 +667,6 @@ final testsMary = [
             policyIdHex: '7eae28af2208be856f7a119668ae52a49b73725e326dc16579dcc373',
             tokens: [
               ParsedToken(
-                assetNameHex: '',
-                amount: BigInt.from(0),
-              ),
-              ParsedToken(
                 assetNameHex: '1e349c9bdea19fd6c147626a5260bc44b71635f398b67c59881df209',
                 amount: BigInt.from(-1),
               ),
@@ -694,7 +686,7 @@ final testsMary = [
       additionalWitnessPaths: [],
     ),
     expected: SignedTransactionData(
-      txHashHex: '49686d9089cba67506537574dd0514038f813a2b9e648097aa49c2b93d14d549',
+      txHashHex: '288a78dfa91e3aa28de8a953d44549a3e5a8b98a37cdff4d26c5003e5e03529f',
       witnesses: [
         Witness(
           path: LedgerSigningPath.shelley(
@@ -703,7 +695,7 @@ final testsMary = [
             role: ShelleyAddressRole.payment,
           ),
           witnessSignatureHex:
-              '2a4ec4e5eb03d24264d612923e62b01384d215a70c415b067cc109580cef1044fc9a5b17fe92f752b70702fd457e6ea455a4ef5f3afdd44548223e913bc43b08',
+              '690eff86562c78d2186b0cd80b84855556da9a8e34a7817cfce9f01d0a90c00ef6397a530fd87dddd52b172abcdc6a6dbbe3f4c0663f555930d532f625e7d509',
         ),
       ],
       auxiliaryDataSupplement: null,
