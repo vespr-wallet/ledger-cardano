@@ -1,4 +1,4 @@
-## 0.6.0
+## 0.5.10
 
 - Added Ledger Cardano app v8 support while retaining v7 compatibility, with automatic protocol selection for transaction signing, CIP-36 vote signing, CIP-8 message signing, and native script hash derivation
 - Added `TransactionSigningModes.unrestrictedTransaction` for v8 devices (requires Expert mode)
