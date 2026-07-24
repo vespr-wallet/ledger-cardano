@@ -86,12 +86,12 @@ class SerializationV8 {
       for (final cert in tx.certificates ?? const []) {
         writer.write(_serializeV8Certificate(cert));
       }
-      for (final w in tx.withdrawals ?? const []) {
+      for (final w in tx.withdrawals ?? const <ParsedWithdrawal>[]) {
         writer.write(SerializationUtils.serializeCoin(w.amount));
         writer.write(serializeCredentialV8(w.stakeCredential));
       }
       if (tx.validityIntervalStart != null) writer.write(SerializationUtils.serializeUint64(tx.validityIntervalStart!));
-      for (final group in tx.mint ?? const []) {
+      for (final group in tx.mint ?? const <ParsedAssetGroup>[]) {
         writer.write(hex.decode(group.policyIdHex));
         writer.writeUint16(group.tokens.length);
         for (final token in group.tokens) {
@@ -117,7 +117,7 @@ class SerializationV8 {
       for (final input in tx.referenceInputs ?? const []) {
         writer.write(SerializationUtils.serializeTxInput(input));
       }
-      for (final voterVotes in tx.votingProcedures ?? const []) {
+      for (final voterVotes in tx.votingProcedures ?? const <ParsedVoterVotes>[]) {
         writer.write(SerializationUtils.serializeVoter(voterVotes.voter));
         writer.writeUint16(voterVotes.votes.length);
         for (final vote in voterVotes.votes) {
@@ -362,11 +362,11 @@ class SerializationV8 {
   }
 
   static void _writeV8CVoteKey(ByteDataWriter writer, CVotePublicKey? key, LedgerSigningPath? path) {
-    if(key == null && path == null){
+    if (key == null && path == null) {
       throw LedgerCardanoValidationException("votePublicKey and votePublicKeyPath cannot both be null");
     }
-    if(key != null && path!= null){
-      throw LedgerCardanoValidationException("Only one of votePublicKey or votePublicKeyPath should be provided");  
+    if (key != null && path != null) {
+      throw LedgerCardanoValidationException("Only one of votePublicKey or votePublicKeyPath should be provided");
     }
     if (key != null) {
       writer.writeUint8(0); // CVOTE_CREDENTIAL_KEY

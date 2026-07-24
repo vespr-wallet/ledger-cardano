@@ -1,3 +1,12 @@
+## 0.6.0
+
+- Added Ledger Cardano app v8 support while retaining v7 compatibility, with automatic protocol selection for transaction signing, CIP-36 vote signing, CIP-8 message signing, and native script hash derivation
+- Added `TransactionSigningModes.unrestrictedTransaction` for v8 devices (requires Expert mode)
+- Added v8 combined Conway delegation certificates: `stakePoolAndDRepDelegation`, `accountRegistrationDelegationToStakePool`, `accountRegistrationDelegationToDRep`, and `accountRegistrationDelegationToStakePoolAndDRep`
+- Added `LedgerSigningPath.poolCold` and exported `ParsedPoolRelay` for pool registration signing
+- Added v8 response-code handling with detailed, operation-specific exceptions and original device status codes
+- Updated dependencies, Flutter and Android tooling, CI, and integration test coverage
+
 ## 0.5.9
 
 - Updated deps
